@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopta una Mascota - Hogar Para Siempre</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Chewy&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #fb4e10;
+            --primary-dark: #E55A2B;
+            --primary-light: #FF8E53;
+            --secondary: #2D3047;
+            --accent: #FF9F1C;
+            --accent-light: #FFB74D;
+            --light: #FFF8F0;
+            --dark: #333333;
+            --gray: #6C757D;
+            --success: #28A745;
+            --warning: #FFC107;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            --gradient-light: linear-gradient(135deg, var(--primary-light) 0%, var(--accent-light) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Chewy', cursive;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Header con animación */
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            animation: headerSlide 1s ease-out;
+        }
+        
+        @keyframes headerSlide {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo i {
+            font-size: 2.8rem;
+            margin-right: 0.8rem;
+            filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
+        }
+        
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Navegación mejorada con efecto */
+        nav {
+            background-color: var(--secondary);
+            padding: 0.8rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 110px;
+            z-index: 99;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav ul li {
+            margin: 0 1.2rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        nav ul li a:hover::before {
+            left: 0;
+        }
+        
+        nav ul li a i {
+            margin-right: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        nav ul li a:hover i {
+            transform: scale(1.2);
+        }
+        
+        /* Hero Section con animación */
+        .hero {
+            background: linear-gradient(rgba(45, 48, 71, 0.85), rgba(255, 107, 53, 0.85)), url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-100px, -100px) rotate(360deg); }
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero h2 {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            left: 0;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* Container y secciones con efectos */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            padding: 3.5rem 2.5rem;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-10px);
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--gradient);
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 10%;
+            width: 80%;
+            height: 6px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+        
+        /* Filtros de mascotas */
+        .pet-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .filter-btn {
+            padding: 0.8rem 1.8rem;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Grid de mascotas mejorado */
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .pet-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .pet-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pet-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .pet-card:hover .pet-image {
+            transform: scale(1.1);
+        }
+        
+        .pet-info {
+            padding: 1.8rem;
+            position: relative;
+        }
+        
+        .pet-name {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .pet-type {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .pet-details {
+            margin-bottom: 1.5rem;
+        }
+        
+        .pet-details p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .pet-details i {
+            margin-right: 0.8rem;
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .adopt-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 18px rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .adopt-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-light);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .adopt-btn:hover::before {
+            left: 0;
+        }
+        
+        .adopt-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        /* Proceso de adopción con animaciones */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: linear-gradient(135deg, #fff, #f9f9f9);
+            border-radius: 20px;
+            border-top: 6px solid var(--primary);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--gradient-light);
+            transition: all 0.4s ease;
+            z-index: 0;
+            opacity: 0.1;
+        }
+        
+        .step:hover::before {
+            height: 100%;
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            font-size: 1.4rem;
+            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step h3 {
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step p {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Contacto mejorado */
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-top: 2.5rem;
+        }
+        
+        .contact-details, .contact-form {
+            flex: 1;
+            min-width: 320px;
+        }
+        
+        .contact-details h3, .contact-form h3 {
+            margin-bottom: 1.8rem;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+        
+        .contact-item:hover {
+            background-color: #fff5eb;
+            transform: translateX(10px);
+            border-left: 5px solid var(--primary);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.8rem;
+            font-size: 1.5rem;
+            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            height: 160px;
+            resize: vertical;
+        }
+        
+        /* Footer mejorado */
+        footer {
+            background: linear-gradient(135deg, var(--secondary) 0%, #1a1c2b 100%);
+            color: white;
+            padding: 4rem 1rem 2rem;
+            margin-top: 5rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.8rem;
+            color: var(--primary-light);
+            font-size: 1.6rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-section ul li a i {
+            margin-right: 0.8rem;
+            color: var(--primary-light);
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--primary-light);
+            transform: translateX(8px);
+        }
+        
+        .footer-section ul li a:hover i {
+            transform: scale(1.2);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--gradient);
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal mejorado con animación */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 3% auto;
+            padding: 0;
+            border-radius: 25px;
+            width: 85%;
+            max-width: 950px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            animation: modalSlide 0.5s;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        @keyframes modalSlide {
+            from { transform: translateY(-100px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        
+        .modal-header {
+            padding: 1.8rem 2.5rem;
+            background: var(--gradient);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close:hover {
+            transform: rotate(90deg);
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .modal-body {
+            padding: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+        
+        .modal-image {
+            flex: 1;
+            min-width: 320px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .modal-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .modal-info {
+            flex: 2;
+            min-width: 320px;
+        }
+        
+        .modal-info h3 {
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .modal-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 5px;
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .info-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            background: #f9f9f9;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:hover {
+            background: #fff5eb;
+            transform: translateX(5px);
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: var(--secondary);
+            min-width: 140px;
+        }
+        
+        .info-value {
+            color: var(--dark);
+        }
+        
+        /* Botón flotante de WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #128C7E;
+        }
+        
+        /* Efectos de scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .pets-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .process-steps {
+                flex-direction: column;
+            }
+            
+            .modal-body {
+                flex-direction: column;
+            }
+            
+            nav {
+                top: 100px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 2rem 1rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+            
+            .modal-body {
+                padding: 2rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 4rem 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/525512345678?text=Hola,%20me%20interesa%20adoptar%20una%20mascota" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                <h1>Adopta una Mascota</h1>
+            </div>
+            <p>Encuentra a tu compañero perfecto y dale un hogar para siempre</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="#mascotas"><i class="fas fa-paw"></i> Mascotas</a></li>
+            <li><a href="#adopcion"><i class="fas fa-heart"></i> Proceso</a></li>
+            <li><a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h2>¡Dales una segunda oportunidad!</h2>
+            <p>Cada año, miles de mascotas esperan un hogar donde recibir amor y cuidado. Tú puedes marcar la diferencia.</p>
+            <a href="#mascotas" class="cta-button">Ver Mascotas Disponibles</a>
+        </div>
+    </section>
+    
+    <div class="container">
+        <section id="inicio" class="section fade-in">
+            <h2 class="page-title">Bienvenido a Adopta una Mascota</h2>
+            <p>En nuestro refugio, nos dedicamos a encontrar hogares amorosos para mascotas que necesitan una segunda oportunidad. Cada año, miles de animales son abandonados, y nosotros trabajamos para darles el cuidado y amor que merecen hasta que encuentren su familia para siempre.</p>
+            <p>Explora nuestro catálogo de mascotas disponibles, conoce nuestro proceso de adopción y contáctanos si tienes alguna pregunta. ¡Juntos podemos hacer la diferencia en la vida de estos maravillosos animales!</p>
+            
+            <div class="stats" style="display: flex; justify-content: space-around; margin-top: 3rem; text-align: center; flex-wrap: wrap;">
+                <div class="stat-item" style="margin: 1rem;">
+                    <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold;">500+</div>
+                    <div style="font-weight: 600;">Mascotas Rescatadas</div>
+                </div>
+                <div class="stat-item" style="margin: 1rem;">
+                    <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold;">350+</div>
+                    <div style="font-weight: 600;">Adopciones Exitosas</div>
+                </div>
+                <div class="stat-item" style="margin: 1rem;">
+                    <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold;">50+</div>
+                    <div style="font-weight: 600;">Voluntarios Activos</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="mascotas" class="section fade-in">
+            <h2 class="page-title">Nuestras Mascotas en Adopción</h2>
+            
+            <div class="pet-filters">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="perro">Perros</button>
+                <button class="filter-btn" data-filter="gato">Gatos</button>
+                <button class="filter-btn" data-filter="conejo">Conejos</button>
+                <button class="filter-btn" data-filter="otro">Otros</button>
+            </div>
+            
+            <div class="pets-grid">
+                <!-- Mascota 1: Perro -->
+                <div class="pet-card fade-in" data-type="perro">
+                    <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Max" class="pet-image">
+                    <div class="pet-info">
+                        <h3 class="pet-name">Max</h3>
+                        <span class="pet-type">Perro</span>
+                        <div class="pet-details">
+                            <p><i class="fas fa-birthday-cake"></i> <strong>Edad:</strong> 2 años</p>
+                            <p><i class="fas fa-dna"></i> <strong>Raza:</strong> Labrador Retriever</p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Refugio Central</p>
+                            <p>Max es un perro juguetón y energético. Le encanta correr en el parque y es muy amigable con los niños.</p>
+                        </div>
+                        <button class="adopt-btn" onclick="openModal('modal1')">Conocer a Max</button>
+                    </div>
+                </div>
+                
+                <!-- Mascota 2: Gato -->
+                <div class="pet-card fade-in" data-type="gato">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Luna" class="pet-image">
+                    <div class="pet-info">
+                        <h3 class="pet-name">Luna</h3>
+                        <span class="pet-type">Gato</span>
+                        <div class="pet-details">
+                            <p><i class="fas fa-birthday-cake"></i> <strong>Edad:</strong> 1 año</p>
+                            <p><i class="fas fa-dna"></i> <strong>Raza:</strong> Siamés</p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Refugio Norte</p>
+                            <p>Luna es una gata cariñosa pero independiente. Le gusta acurrucarse en el sofá y observar desde la ventana.</p>
+                        </div>
+                        <button class="adopt-btn" onclick="openModal('modal2')">Conocer a Luna</button>
+                    </div>
+                </div>
+                
+                <!-- Mascota 3: Conejo -->
+                <div class="pet-card fade-in" data-type="conejo">
+                    <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Snowball" class="pet-image">
+                    <div class="pet-info">
+                        <h3 class="pet-name">Snowball</h3>
+                        <span class="pet-type">Conejo</span>
+                        <div class="pet-details">
+                            <p><i class="fas fa-birthday-cake"></i> <strong>Edad:</strong> 6 meses</p>
+                            <p><i class="fas fa-dna"></i> <strong>Raza:</strong> Holandés Enano</p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> Refugio Este</p>
+                            <p>Snowball es un conejo juguetón y curioso. Le encanta explorar y mordisquear zanahorias.</p>
+                        </div>
+                        <button class="adopt-btn" onclick="openModal('modal3')">Conocer a Snowball</button>
+                    </div>
+                </div>
+                <!-- Más tarjetas de mascotas pueden añadirse aquí -->
+            </div>
+        </section>
+        
+        <section id="adopcion" class="section fade-in">
+            <h2 class="page-title">Proceso de Adopción</h2>
+            <p>En Adopta una Mascota, nos tomamos muy en serio el bienestar de nuestros animales. Por eso, hemos establecido un proceso de adopción que garantiza que cada mascota encuentre un hogar adecuado y amoroso.</p>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Conoce a la Mascota</h3>
+                    <p>Visita nuestro refugio o navega por nuestro sitio web para conocer a las mascotas disponibles. Puedes solicitar más información sobre cualquier animal que te interese.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Solicitud de Adopción</h3>
+                    <p>Completa nuestro formulario de adopción en línea o en persona. Necesitamos conocer tu situación familiar, experiencia con mascotas y el entorno donde vivirá el animal.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Entrevista y Visita</h3>
+                    <p>Un miembro de nuestro equipo se pondrá en contacto contigo para programar una entrevista y, si es necesario, una visita a tu hogar para asegurarnos de que es adecuado.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Proceso de Adaptación</h3>
+                    <p>Una vez aprobada la adopción, programaremos una cita para que conozcas a tu nueva mascota. Te proporcionaremos información sobre cuidados y un período de adaptación.</p>
+                </div>
+            </div>
+            
+            <div class="adoption-process" style="margin-top: 3rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Requisitos para Adoptar</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.8rem; font-size: 1.2rem;"></i>
+                        <span>Ser mayor de 21 años</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.8rem; font-size: 1.2rem;"></i>
+                        <span>Presentar identificación oficial</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.8rem; font-size: 1.2rem;"></i>
+                        <span>Comprobante de domicilio</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.8rem; font-size: 1.2rem;"></i>
+                        <span>Firmar contrato de adopción</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.8rem; font-size: 1.2rem;"></i>
+                        <span>Comprometerse a brindar cuidados veterinarios</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.8rem; font-size: 1.2rem;"></i>
+                        <span>Contar con espacio adecuado para la mascota</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contacto" class="section fade-in">
+            <h2 class="page-title">Contáctanos</h2>
+            <p>¿Tienes preguntas sobre nuestras mascotas, el proceso de adopción o quieres saber cómo puedes ayudar? No dudes en contactarnos.</p>
+            
+            <div class="contact-info">
+                <div class="contact-details">
+                    <h3>Información de Contacto</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Dirección</h4>
+                            <p>Calle de los Animales 123, Col. Mascotas Felices<br>Ciudad de México, 03100</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <p>+52 55 1234 5678</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@adoptamascota.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Horario de Atención</h4>
+                            <p>Lunes a Viernes: 9:00 AM - 6:00 PM<br>Sábados: 10:00 AM - 4:00 PM<br>Domingos: Cerrado</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Envíanos un Mensaje</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nombre completo</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Asunto</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Selecciona un asunto</option>
+                                <option value="adopcion">Información sobre adopción</option>
+                                <option value="voluntariado">Voluntariado</option>
+                                <option value="donaciones">Donaciones</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="adopt-btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Modal para Max (Perro) -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Max - Labrador Retriever</h2>
+                <span class="close" onclick="closeModal('modal1')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Max">
+                </div>
+                <div class="modal-info">
+                    <h3>Información Detallada</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Edad:</span>
+                            <span class="info-value">2 años</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Raza:</span>
+                            <span class="info-value">Labrador Retriever</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tamaño:</span>
+                            <span class="info-value">Grande</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Peso:</span>
+                            <span class="info-value">28 kg</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Género:</span>
+                            <span class="info-value">Macho</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Esterilizado:</span>
+                            <span class="info-value">Sí</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Vacunado:</span>
+                            <span class="info-value">Completo</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Ubicación:</span>
+                            <span class="info-value">Refugio Central</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Historia</h3>
+                    <p>Max fue rescatado de un refugio de alta demanda donde su tiempo estaba por terminarse. Es un perro extremadamente cariñoso que busca constantemente la compañía humana. Anteriormente vivía con una familia, pero tuvieron que mudarse a un apartamento que no permitía mascotas.</p>
+                    
+                    <h3>Personalidad</h3>
+                    <p>Max es un perro juguetón, energético y muy amigable. Le encanta correr en el parque, nadar y jugar a buscar la pelota. Está entrenado en obediencia básica (sabe sentarse, quedarse y venir cuando se le llama). Es excelente con los niños y se lleva bien con otros perros.</p>
+                    
+                    <h3>Cuidados Especiales</h3>
+                    <p>Necesita ejercicio diario y espacio para correr. Se recomienda un hogar con patio o acceso frecuente a áreas abiertas. Requiere cepillado regular debido a su pelaje denso.</p>
+                    
+                    <button class="adopt-btn" onclick="startAdoptionProcess('Max')" style="margin-top: 1.5rem;">Iniciar Proceso de Adopción</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Luna (Gato) -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Luna - Siamés</h2>
+                <span class="close" onclick="closeModal('modal2')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Luna">
+                </div>
+                <div class="modal-info">
+                    <h3>Información Detallada</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Edad:</span>
+                            <span class="info-value">1 año</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Raza:</span>
+                            <span class="info-value">Siamés</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tamaño:</span>
+                            <span class="info-value">Mediano</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Peso:</span>
+                            <span class="info-value">4 kg</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Género:</span>
+                            <span class="info-value">Hembra</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Esterilizada:</span>
+                            <span class="info-value">Sí</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Vacunada:</span>
+                            <span class="info-value">Completo</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Ubicación:</span>
+                            <span class="info-value">Refugio Norte</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Historia</h3>
+                    <p>Luna fue encontrada como gatita callejera y rescatada por uno de nuestros voluntarios. Después de recibir atención veterinaria y socialización, se ha convertido en una gata adorable que busca un hogar permanente.</p>
+                    
+                    <h3>Personalidad</h3>
+                    <p>Luna es una gata cariñosa pero independiente. Le gusta acurrucarse en el sofá y observar el mundo desde la ventana. Es tranquila y se lleva bien con otros gatos. Tiene una personalidad vocal típica de los siameses y le gusta "conversar" con sus humanos.</p>
+                    
+                    <h3>Cuidados Especiales</h3>
+                    <p>Se adapta bien a la vida en apartamento. Necesita juguetes para gatos y un rascador. Su pelaje corto requiere cepillado ocasional. Es importante proporcionarle lugares elevados para observar su entorno.</p>
+                    
+                    <button class="adopt-btn" onclick="startAdoptionProcess('Luna')" style="margin-top: 1.5rem;">Iniciar Proceso de Adopción</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Snowball (Conejo) -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Snowball - Conejo Holandés Enano</h2>
+                <span class="close" onclick="closeModal('modal3')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Snowball">
+                </div>
+                <div class="modal-info">
+                    <h3>Información Detallada</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Edad:</span>
+                            <span class="info-value">6 meses</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Raza:</span>
+                            <span class="info-value">Holandés Enano</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tamaño:</span>
+                            <span class="info-value">Pequeño</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Peso:</span>
+                            <span class="info-value">1.2 kg</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Género:</span>
+                            <span class="info-value">Macho</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Esterilizado:</span>
+                            <span class="info-value">No (próximamente)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Ubicación:</span>
+                            <span class="info-value">Refugio Este</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Historia</h3>
+                    <p>Snowball fue entregado a nuestro refugio cuando su dueño anterior se dio cuenta de que no podía proporcionarle los cuidados necesarios. Ha estado con nosotros durante 2 meses y está listo para encontrar un hogar permanente.</p>
+                    
+                    <h3>Personalidad</h3>
+                    <p>Snowball es un conejo juguetón y curioso. Le encanta explorar su entorno y mordisquear zanahorias. Es muy sociable y disfruta de la compañía humana. Puede ser un poco tímido al principio, pero una vez que se siente cómodo, muestra su personalidad juguetona.</p>
+                    
+                    <h3>Cuidados Especiales</h3>
+                    <p>Necesita una jaula espaciosa con espacio para moverse libremente. Requiere una dieta basada en heno, verduras frescas y pellets especiales. Necesita juguetes para morder y objetos para entretenerse. Se recomienda supervisión durante el tiempo fuera de la jaula.</p>
+                    
+                    <button class="adopt-btn" onclick="startAdoptionProcess('Snowball')" style="margin-top: 1.5rem;">Iniciar Proceso de Adopción</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Adopta una Mascota</h3>
+                <p>Dedicados a encontrar hogares amorosos para mascotas necesitadas. Trabajamos incansablemente para rescatar, rehabilitar y reubicar animales abandonados.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="#inicio"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="#mascotas"><i class="fas fa-chevron-right"></i> Mascotas</a></li>
+                    <li><a href="#adopcion"><i class="fas fa-chevron-right"></i> Proceso de Adopción</a></li>
+                    <li><a href="#contacto"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Horarios de Atención</h3>
+                <p><strong>Lunes a Viernes:</strong> 9:00 AM - 6:00 PM</p>
+                <p><strong>Sábados:</strong> 10:00 AM - 4:00 PM</p>
+                <p><strong>Domingos:</strong> Cerrado</p>
+                <p><strong>Teléfono:</strong> +52 55 1234 5678</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Adopta una Mascota. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Funciones para abrir y cerrar modales
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+        
+        // Cerrar modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        }
+        
+        // Función para iniciar proceso de adopción
+        function startAdoptionProcess(petName) {
+            alert(`¡Gracias por tu interés en adoptar a ${petName}! Te contactaremos pronto para iniciar el proceso de adopción.`);
+            // Cerrar todos los modales
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                modals[i].style.display = "none";
+            }
+            
+            // Desplazar a la sección de contacto
+            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Manejar el envío del formulario de contacto
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
+            this.reset();
+        });
+        
+        // Navegación suave
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Filtros de mascotas
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remover clase active de todos los botones
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Añadir clase active al botón clickeado
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const petCards = document.querySelectorAll('.pet-card');
+                
+                petCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-type') === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Animación de elementos al hacer scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        // Ejecutar una vez al cargar la página
+        fadeInOnScroll();
+        
+        // Efecto de escritura en el hero
+        const heroTitle = document.querySelector('.hero h2');
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < originalText.length) {
+                heroTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        };
+        
+        // Iniciar efecto de escritura después de un breve retraso
+        setTimeout(typeWriter, 1000);
+        
+        // Efecto de confeti al hacer clic en botones de adopción
+        document.querySelectorAll('.adopt-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (!this.getAttribute('onclick') || !this.getAttribute('onclick').includes('openModal')) {
+                    createConfetti(e.clientX, e.clientY);
+                }
+            });
+        });
+        
+        function createConfetti(x, y) {
+            const colors = ['#FF6B35', '#FF9F1C', '#2D3047', '#28A745', '#FFC107'];
+            const confettiCount = 30;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = '50%';
+                confetti.style.left = `${x}px`;
+                confetti.style.top = `${y}px`;
+                confetti.style.pointerEvents = 'none';
+                confetti.style.zIndex = '1000';
+                
+                document.body.appendChild(confetti);
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 2 + Math.random() * 2;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                let posX = x;
+                let posY = y;
+                let opacity = 1;
+                
+                const animateConfetti = () => {
+                    posX += vx;
+                    posY += vy;
+                    vy += 0.1; // gravedad
+                    opacity -= 0.02;
+                    
+                    confetti.style.left = `${posX}px`;
+                    confetti.style.top = `${posY}px`;
+                    confetti.style.opacity = opacity;
+                    
+                    if (opacity > 0) {
+                        requestAnimationFrame(animateConfetti);
+                    } else {
+                        document.body.removeChild(confetti);
+                    }
+                };
+                
+                animateConfetti();
+            }
+        }
+    </script>
+</body>
+</html>
